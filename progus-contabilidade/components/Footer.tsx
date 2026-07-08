@@ -24,7 +24,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-12">
           {/* Marca + descrição */}
           <div className="lg:col-span-5">
-            <Logo light />
+            <Logo/>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-navy-300">
               Contabilidade familiar com mais de 25 anos de história. Tradição,
               proximidade e tecnologia para a sua empresa crescer com segurança.
