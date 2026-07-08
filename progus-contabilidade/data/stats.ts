@@ -4,7 +4,7 @@ import type { Stat } from "@/types";
 export const stats: Stat[] = [
   {
     icon: CalendarClock,
-    value: 25,
+    value: 35,
     suffix: "+",
     label: "Anos de experiência",
   },
