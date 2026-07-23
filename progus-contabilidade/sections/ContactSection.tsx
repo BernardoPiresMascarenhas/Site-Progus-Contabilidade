@@ -178,7 +178,7 @@ export function ContactSection() {
                   </div>
 
                   <SelectField
-                    label="Tipo de empresa"
+                    label="Regime Tributário"
                     required
                     value={form.companyType}
                     onChange={(v) => update("companyType", v)}

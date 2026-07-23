@@ -10,22 +10,22 @@ const values = [
   {
     icon: Users,
     title: "Empresa Familiar",
-    text: "Tradição conduzida por Hélio e Gabriel, tratando cada cliente como parte da família.",
+    text: "Tradição, confiança e atendimento próximo há mais de três décadas.",
   },
   {
     icon: ShieldCheck,
-    title: "Credibilidade",
-    text: "Décadas de atuação com responsabilidade técnica e segurança nas decisões.",
+    title: "Consistência",
+    text: " Informações confiáveis e consistentes, alinhadas às melhores práticas da contabilidade.",
   },
   {
     icon: HeartHandshake,
     title: "Proximidade",
-    text: "Atendimento claro e alinhado às necessidades reais do seu negócio.",
+    text: "Estamos ao lado da sua empresa, oferecendo orientação em cada etapa do seu negócio.",
   },
   {
     icon: Sparkles,
-    title: "Melhoria Contínua",
-    text: "Organização e planejamento com atualização constante das nossas soluções.",
+    title: "Tecnologia",
+    text: "Aplicamos tecnologia para simplificar processos e otimizar a gestão do seu negócio.",
   },
 ];
 

@@ -16,8 +16,8 @@ export function PlansSection() {
       <Container>
         <SectionHeading
           eyebrow="Perfis de cliente"
-          title="Uma solução para cada momento da sua empresa"
-          description="Não trabalhamos com tabela fixa. Montamos o atendimento ideal para o seu perfil e te apresentamos uma cotação sob medida."
+          title="Uma trilha para cada momento da sua empresa"
+          description="Montamos o atendimento ideal para seu nível de complexidade e te apresentamos uma cotação sob medida."
         />
 
         <motion.div

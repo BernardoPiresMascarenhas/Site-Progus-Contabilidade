@@ -9,8 +9,8 @@ import { PORTAL_URL, CONTACT_ANCHOR } from "@/data/navigation";
 
 const quickMetrics = [
   { value: "35+", label: "anos de mercado" },
-  { value: "1.200+", label: "empresas atendidas" },
-  { value: "98%", label: "de satisfação" },
+  { value: "500+", label: "clientes atendidos" },
+  { value: "10+", label: "segmentos atendidos" },
 ];
 
 const badges = [

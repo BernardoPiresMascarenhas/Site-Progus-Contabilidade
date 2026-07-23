@@ -1,28 +1,30 @@
-import { CalendarClock, Building, Smile, GraduationCap } from "lucide-react";
+import { CalendarClock, Users, Calculator, Briefcase } from "lucide-react";
 import type { Stat } from "@/types";
 
 export const stats: Stat[] = [
   {
     icon: CalendarClock,
-    value: 35,
+    prefix: "Desde ",
+    value: 1987,
+    suffix: "",
+    label: "Tradição consolidada",
+  },
+  {
+    icon: Users, // Alterado para ícone de usuários/sócios
+    value: 700,
     suffix: "+",
-    label: "Anos de experiência",
+    label: "Sócios atendidos em nossa história",
   },
   {
-    icon: Building,
-    value: 1200,
-    suffix: "+",
-    label: "Empresas atendidas",
+    icon: Calculator, // Alterado para calculadora (faz muito mais sentido para tributos)
+    value: 4,
+    suffix: "",
+    label: " Todos os regimes: de MEI a Lucro Real",
   },
   {
-    icon: Smile,
-    value: 98,
-    suffix: "%",
-    label: "Índice de satisfação",
-  },
-  {
-    icon: GraduationCap,
-    value: 18,
-    label: "Especialistas no time",
+    icon: Briefcase, // Alterado para maleta de negócios
+    value: 4,
+    suffix: "",
+    label: "Segmentos Atendidos: serviços, comércio, indústria",
   },
 ];
