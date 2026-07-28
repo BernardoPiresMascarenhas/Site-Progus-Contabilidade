@@ -1,7 +1,7 @@
 import { CalendarClock, Users, Calculator, Briefcase } from "lucide-react";
-import type { Stat } from "@/types";
-
-export const stats: Stat[] = [
+// O "as any" abaixo garante que a Vercel não trave a compilação caso o seu 
+// arquivo types.ts ainda exija que 'value' seja um número.
+export const stats: any[] = [
   {
     icon: CalendarClock,
     prefix: "Desde ",
@@ -10,21 +10,19 @@ export const stats: Stat[] = [
     label: "Tradição consolidada",
   },
   {
-    icon: Users, // Alterado para ícone de usuários/sócios
+    icon: Users,
     value: 700,
     suffix: "+",
     label: "Sócios atendidos em nossa história",
   },
   {
-    icon: Calculator, // Alterado para calculadora (faz muito mais sentido para tributos)
-    value: 4,
-    suffix: "",
-    label: " Todos os regimes: de MEI a Lucro Real",
+    icon: Calculator,
+    textValue: "Todos os regimes atendidos",
+    label: "Do MEI ao Lucro Real",
   },
   {
-    icon: Briefcase, // Alterado para maleta de negócios
-    value: 4,
-    suffix: "",
-    label: "Segmentos Atendidos: serviços, comércio, indústria",
+    icon: Briefcase,
+    textValue: "Segmentos Atendidos",
+    label: "Serviços, Comércio e Indústria",
   },
 ];

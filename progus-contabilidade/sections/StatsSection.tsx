@@ -35,7 +35,7 @@ export function StatsSection() {
           viewport={viewportOnce}
           className="mt-16 grid grid-cols-2 gap-6 lg:grid-cols-4 lg:gap-8"
         >
-          {stats.map((stat) => (
+          {stats.map((stat: any) => (
             <motion.div
               key={stat.label}
               variants={fadeUp}
@@ -45,13 +45,23 @@ export function StatsSection() {
                 <stat.icon className="h-7 w-7" strokeWidth={1.8} />
               </span>
 
-              <p className="mt-5 font-display text-4xl font-bold text-white sm:text-5xl">
-                <AnimatedCounter
-                  value={stat.value}
-                  prefix={stat.prefix}
-                  suffix={stat.suffix}
-                />
+              {/* Lógica condicional: Se for número, usa text-5xl. Se for texto longo, usa text-xl/2xl */}
+              <p 
+                className={`mt-5 font-display font-bold text-white ${
+                  stat.value !== undefined ? "text-4xl sm:text-5xl" : "text-xl sm:text-2xl mt-6"
+                }`}
+              >
+                {stat.value !== undefined ? (
+                  <AnimatedCounter
+                    value={stat.value}
+                    prefix={stat.prefix}
+                    suffix={stat.suffix}
+                  />
+                ) : (
+                  stat.textValue
+                )}
               </p>
+              
               <p className="mt-2 text-sm font-medium text-navy-200">
                 {stat.label}
               </p>

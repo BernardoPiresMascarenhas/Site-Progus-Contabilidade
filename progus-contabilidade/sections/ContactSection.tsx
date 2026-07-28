@@ -24,6 +24,7 @@ import {
 import type { ContactFormData, FormStatus } from "@/types";
 
 const companyTypes = [
+  "PF",
   "MEI",
   "Simples Nacional",
   "Lucro Presumido",
