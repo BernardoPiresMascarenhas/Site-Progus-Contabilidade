@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { WhatsAppIcon } from "@/components/WhatsAppButton";
+import { WHATSAPP_URL, PHONE_DISPLAY, PHONE_HREF } from "@/data/navigation";
 import { fadeUp, viewportOnce } from "@/lib/motion";
 import {
   cn,
@@ -41,14 +43,40 @@ const initialForm: ContactFormData = {
   message: "",
 };
 
-const contactInfo = [
+interface ContactInfo {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  value: string;
+  /** Quando presente, o valor vira link (tel:, mailto:, wa.me...). */
+  href?: string;
+  external?: boolean;
+}
+
+const contactInfo: ContactInfo[] = [
   {
     icon: MapPin,
     label: "Endereço",
     value: "R. Belo Oriente, 120 — Providência, Belo Horizonte / MG",
   },
-  { icon: Phone, label: "Telefone", value: "(31) 3000-0000" },
-  { icon: Mail, label: "E-mail", value: "contato@proguscontabilidade.com.br" },
+  {
+    icon: WhatsAppIcon,
+    label: "WhatsApp",
+    value: "(31) 98742-9058",
+    href: WHATSAPP_URL,
+    external: true,
+  },
+  {
+    icon: Phone,
+    label: "Telefone fixo",
+    value: PHONE_DISPLAY,
+    href: PHONE_HREF,
+  },
+  {
+    icon: Mail,
+    label: "E-mail",
+    value: "progus@proguscontabilidade.com.br",
+    href: "mailto:progus@proguscontabilidade.com.br",
+  },
   { icon: Clock, label: "Atendimento", value: "Seg a Sex, 8h às 18h" },
 ];
 
@@ -79,20 +107,14 @@ export function ContactSection() {
     setStatus("submitting");
 
     try {
-      // ───────────────────────────────────────────────────────────────
-      // PONTO DE INTEGRAÇÃO COM O BACKEND
-      // Troque o bloco simulado abaixo por uma chamada real, por exemplo:
-      //
-      // const res = await fetch("/api/contact", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(form),
-      // });
-      // if (!res.ok) throw new Error("Falha no envio");
-      //
-      // (Há um exemplo de Route Handler pronto em app/api/contact/route.ts)
-      // ───────────────────────────────────────────────────────────────
-      await new Promise((resolve) => setTimeout(resolve, 1400));
+      // O envio de e-mail acontece no servidor (Resend) — ver app/api/contact/route.ts
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) throw new Error("Falha no envio");
 
       setStatus("success");
       setForm(initialForm);
@@ -197,9 +219,21 @@ export function ContactSection() {
                   />
 
                   {status === "error" && (
-                    <p className="flex items-center gap-2 text-sm text-red-600">
-                      <AlertCircle className="h-4 w-4" />
-                      Algo deu errado. Tente novamente em instantes.
+                    <p className="flex items-start gap-2 text-sm text-red-600">
+                      <AlertCircle className="mt-0.5 h-4 w-4 flex-none" />
+                      <span>
+                        Algo deu errado. Tente novamente em instantes ou fale
+                        com a gente pelo{" "}
+                        <a
+                          href={WHATSAPP_URL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-semibold underline underline-offset-2"
+                        >
+                          WhatsApp
+                        </a>
+                        .
+                      </span>
                     </p>
                   )}
 
@@ -247,9 +281,20 @@ export function ContactSection() {
                       <p className="text-xs uppercase tracking-wider text-navy-200">
                         {info.label}
                       </p>
-                      <p className="mt-0.5 text-sm leading-relaxed text-white">
-                        {info.value}
-                      </p>
+                      {info.href ? (
+                        <a
+                          href={info.href}
+                          target={info.external ? "_blank" : undefined}
+                          rel={info.external ? "noopener noreferrer" : undefined}
+                          className="mt-0.5 inline-block text-sm leading-relaxed text-white transition-colors hover:text-azure-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-azure-400 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900"
+                        >
+                          {info.value}
+                        </a>
+                      ) : (
+                        <p className="mt-0.5 text-sm leading-relaxed text-white">
+                          {info.value}
+                        </p>
+                      )}
                     </div>
                   </li>
                 ))}

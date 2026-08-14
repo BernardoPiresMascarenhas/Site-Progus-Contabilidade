@@ -70,11 +70,25 @@ progus-contabilidade/
 
 ## Pontos que você PRECISA ajustar antes de publicar
 
-1. **Formulário de contato (envio real).**
-   O front já valida e tem estados (loading/sucesso/erro), mas não envia e-mail sozinho.
-   Em `sections/ContactSection.tsx`, no `handleSubmit`, há um bloco simulado (`setTimeout`).
-   Troque pela chamada real à rota `/api/contact` (já comentada lá).
-   Em `app/api/contact/route.ts` há um exemplo pronto — escolha Resend, Nodemailer ou webhook do seu CRM.
+1. **Formulário de contato (variáveis de ambiente).**
+   O formulário já envia de verdade: `sections/ContactSection.tsx` faz `POST /api/contact` e
+   `app/api/contact/route.ts` dispara o e-mail via [Resend](https://resend.com).
+   Falta só preencher as credenciais — copie `.env.example` para `.env.local`:
+
+   ```bash
+   cp .env.example .env.local
+   ```
+
+   | Variável | Para que serve |
+   | --- | --- |
+   | `RESEND_API_KEY` | Chave criada em resend.com/api-keys |
+   | `CONTACT_TO_EMAIL` | Caixa que recebe as solicitações |
+   | `CONTACT_FROM_EMAIL` | Remetente; o domínio precisa estar verificado no Resend |
+
+   Sem domínio verificado, use `onboarding@resend.dev` como remetente para testar
+   (o Resend só entrega no e-mail dono da conta nesse modo). Em produção, lembre de
+   cadastrar as mesmas variáveis no painel do host (Vercel, etc.).
+   O `replyTo` do e-mail já vem com o endereço de quem preencheu, então basta responder.
 
 2. **Mapa do Google.**
    Em `ContactSection.tsx`, o `<iframe>` usa um endereço genérico de BH.

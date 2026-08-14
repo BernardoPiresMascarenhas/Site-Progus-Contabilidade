@@ -1,5 +1,6 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { HeroSection } from "@/sections/HeroSection";
 import { AboutSection } from "@/sections/AboutSection";
 import { ServicesSection } from "@/sections/ServicesSection";
@@ -24,6 +25,7 @@ export default function HomePage() {
         <ContactSection />
       </main>
       <Footer />
+      <WhatsAppButton />
     </>
   );
 }

@@ -1,46 +1,36 @@
 import type { Testimonial } from "@/types";
 
+/** Painel de avaliações da Progus no Google (perfil da empresa). */
+export const googleReviewsUrl =
+  "https://www.google.com/search?q=proguscontabilidade#lrd=0xa69ac07dcf552f:0xf0a74fec3af82080,1,,,,";
+
 export const testimonials: Testimonial[] = [
   {
-    name: "Mariana Alves",
-    role: "Sócia-fundadora",
-    company: "Aurora Decor",
+    name: "Roberta Amariles",
+    role: "Sócia",
+    company: "AMARILES REPRESENTACOES",
     rating: 5,
-    text: "Migrei para a Progus há três anos e nunca mais me preocupei com prazos. O atendimento é próximo, respondem rápido e explicam tudo de um jeito que eu entendo.",
+    text: "Minha experiência com a Progus Contabilidade tem sido excelente! Desde o primeiro contato com o Sr Hélio e Gabriel, fui atendida com muita atenção, profissionalismo e agilidade. A equipe é extremamente competente, sempre pronta para esclarecer dúvidas e oferecer as melhores orientações. É muito bom poder contar com uma empresa séria, ética e comprometida com a qualidade dos serviços prestados. A confiança e a tranquilidade que eles transmitem fazem toda a diferença. Recomendo a Progus Contabilidade com total segurança. Parabéns a toda a equipe pelo excelente trabalho e pelo atendimento de alto nível!",
   },
   {
-    name: "Rafael Monteiro",
-    role: "Diretor",
-    company: "RM Engenharia",
-    rating: 5,
-    text: "O planejamento tributário que fizeram reduziu nossa carga de impostos de forma totalmente legal. Senti que realmente entenderam o nosso negócio.",
-  },
-  {
-    name: "Patrícia Gomes",
-    role: "CEO",
-    company: "Loja Bella Moda",
-    rating: 5,
-    text: "Eu era MEI e cresci com a ajuda deles. Me orientaram em cada etapa da transição para o Simples. É uma parceria de verdade, não só um serviço.",
-  },
-  {
-    name: "Eduardo Lima",
-    role: "Fundador",
-    company: "TechNova Sistemas",
-    rating: 5,
-    text: "O BPO financeiro liberou meu tempo para focar no que importa. Recebo relatórios claros todo mês e sei exatamente como a empresa está.",
-  },
-  {
-    name: "Cláudia Ferreira",
-    role: "Proprietária",
-    company: "Clínica Vida Plena",
-    rating: 5,
-    text: "Profissionais sérios e humanos. Tratam minha clínica como se fosse a empresa deles. Recomendo de olhos fechados.",
-  },
-  {
-    name: "Bruno Tavares",
+    name: "Gustavo Rodrigues",
     role: "Sócio",
-    company: "Tavares Logística",
+    company: "GR Volt",
     rating: 5,
-    text: "Tradição com modernidade. Têm a experiência de quem está há décadas no mercado, mas usam tecnologia que facilita muito o nosso dia a dia.",
+    text: "Ótimo atendimento, empresa referencia.",
+  },
+  {
+    name: "Camila Carvalho",
+    role: "Sócia",
+    company: "Local & Global",
+    rating: 5,
+    text: "Excelente empresa de contabilidade. Muita transportadora e organização.",
+  },
+  {
+    name: "Isabella Von",
+    role: "Sócia",
+    company: "ESCRITORIO IM.A",
+    rating: 5,
+    text: "São excelentes!! Muito atentos e cuidadosos, além de serem pacientes para explicar todos os processos 👏🏻",
   },
 ];
