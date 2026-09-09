@@ -26,9 +26,9 @@ export function Header() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled
-          ? "border-b border-navy-100/70 bg-white/95 py-2.5 shadow-soft backdrop-blur-xl"
+          ? "border-b border-navy-100/70 bg-white/95 py-2 shadow-soft backdrop-blur-xl"
           // Alterado de bg-transparent para bg-white para garantir a leitura no fundo escuro
-          : "border-b border-transparent bg-white py-4"
+          : "border-b border-transparent bg-white py-3"
       )}
     >
       <Container className="flex items-center justify-between">
@@ -40,11 +40,11 @@ export function Header() {
           }}
           aria-label="Progus Contabilidade — voltar ao topo"
         >
-          <Logo />
+          <Logo className="h-[68px] w-[173px] lg:h-20 lg:w-[204px]" />
         </a>
 
         {/* Menu central — desktop */}
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Principal">
+        <nav className="hidden items-center gap-1 xl:flex" aria-label="Principal">
           {navItems.map((item) => {
             const isActive = activeId === item.href.replace("#", "");
             return (
@@ -56,7 +56,7 @@ export function Header() {
                   handleNav(item.href);
                 }}
                 className={cn(
-                  "relative rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                  "relative whitespace-nowrap rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
                   isActive
                     ? "text-azure-700"
                     : "text-navy-600 hover:text-navy-900"
@@ -76,7 +76,7 @@ export function Header() {
         </nav>
 
         {/* Botões — desktop */}
-        <div className="hidden items-center gap-2.5 lg:flex">
+        <div className="hidden items-center gap-2.5 xl:flex">
           <Button as="a" href={PORTAL_URL} external variant="secondary" size="md">
             Portal do Cliente
             <ExternalLink className="h-4 w-4" />
@@ -90,7 +90,7 @@ export function Header() {
         {/* Toggle mobile */}
         <button
           onClick={() => setOpen(true)}
-          className="flex h-11 w-11 items-center justify-center rounded-xl border border-navy-100 bg-white/70 text-navy-800 backdrop-blur transition hover:bg-navy-50 lg:hidden"
+          className="flex h-12 w-12 items-center justify-center rounded-xl border border-navy-100 bg-white/70 text-navy-800 backdrop-blur transition hover:bg-navy-50 xl:hidden"
           aria-label="Abrir menu"
           aria-expanded={open}
         >
@@ -108,14 +108,14 @@ export function Header() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
               onClick={() => setOpen(false)}
-              className="fixed inset-0 z-40 bg-navy-950/40 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-40 bg-navy-950/40 backdrop-blur-sm xl:hidden"
             />
             <motion.aside
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 320, damping: 34 }}
-              className="fixed right-0 top-0 z-50 flex h-full w-[82%] max-w-sm flex-col bg-white shadow-card-hover lg:hidden"
+              className="fixed right-0 top-0 z-50 flex h-full w-[82%] max-w-sm flex-col bg-white shadow-card-hover xl:hidden"
             >
               <div className="flex items-center justify-between border-b border-navy-100 px-6 py-5">
                 <Logo />

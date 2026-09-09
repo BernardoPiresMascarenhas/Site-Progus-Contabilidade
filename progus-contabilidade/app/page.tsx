@@ -7,7 +7,6 @@ import { ServicesSection } from "@/sections/ServicesSection";
 import { PlansSection } from "@/sections/PlansSection";
 import { StatsSection } from "@/sections/StatsSection";
 import { TestimonialsSection } from "@/sections/TestimonialsSection";
-import { TeamSection } from "@/sections/TeamSection";
 import { ContactSection } from "@/sections/ContactSection";
 
 export default function HomePage() {
@@ -21,7 +20,6 @@ export default function HomePage() {
         <PlansSection />
         <StatsSection />
         <TestimonialsSection />
-        <TeamSection />
         <ContactSection />
       </main>
       <Footer />

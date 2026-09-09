@@ -1,17 +1,11 @@
 "use client";
 
-import { Linkedin, Instagram, Facebook, ArrowUp } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { Container } from "@/components/ui/Container";
-import { navItems, PORTAL_URL, CONTACT_ANCHOR } from "@/data/navigation";
+import { navItems, PORTAL_URL } from "@/data/navigation";
 import { scrollToSection } from "@/lib/utils";
 import { services } from "@/data/services";
-
-const socials = [
-  { icon: Linkedin, label: "LinkedIn", href: "#" },
-  { icon: Instagram, label: "Instagram", href: "#" },
-  { icon: Facebook, label: "Facebook", href: "#" },
-];
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -24,25 +18,11 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-12">
           {/* Marca + descrição */}
           <div className="lg:col-span-5">
-            <Logo/>
+            <Logo variant="footer" />
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-navy-300">
               Contabilidade familiar com mais de 25 anos de história. Tradição,
               proximidade e tecnologia para a sua empresa crescer com segurança.
             </p>
-            <div className="mt-6 flex gap-2.5">
-              {socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  aria-label={s.label}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-navy-200 transition hover:border-azure-400/50 hover:bg-white/5 hover:text-white"
-                >
-                  <s.icon className="h-4.5 w-4.5" />
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Links rápidos */}
@@ -65,18 +45,6 @@ export function Footer() {
                   </a>
                 </li>
               ))}
-              <li>
-                <a
-                  href={CONTACT_ANCHOR}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(CONTACT_ANCHOR);
-                  }}
-                  className="text-navy-300 transition hover:text-white"
-                >
-                  Contato
-                </a>
-              </li>
             </ul>
           </div>
 

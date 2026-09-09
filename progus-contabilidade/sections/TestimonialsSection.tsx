@@ -96,7 +96,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 
 export function TestimonialsSection() {
   return (
-    <section className="relative py-24 sm:py-28 lg:py-32">
+    <section id="avaliacoes" className="relative py-24 sm:py-28 lg:py-32">
       <Container>
         <SectionHeading
           eyebrow="Depoimentos"
