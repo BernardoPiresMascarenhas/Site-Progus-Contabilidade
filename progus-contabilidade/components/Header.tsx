@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, ArrowRight, ExternalLink } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
@@ -13,168 +14,178 @@ import { cn, scrollToSection } from "@/lib/utils";
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const scrolled = useScrolled(24);
   const activeId = useActiveSection(navItems.map((i) => i.href.replace("#", "")));
+
+  // O drawer precisa ser renderizado via portal no body: quando o header está
+  // com `backdrop-blur`, ele vira containing block dos filhos `fixed` e o menu
+  // deixa de ocupar a viewport inteira (ficando transparente sobre a página).
+  useEffect(() => setMounted(true), []);
 
   const handleNav = (href: string) => {
     setOpen(false);
     scrollToSection(href);
   };
 
-  return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled
-          ? "border-b border-navy-100/70 bg-white/95 py-2 shadow-soft backdrop-blur-xl"
-          // Alterado de bg-transparent para bg-white para garantir a leitura no fundo escuro
-          : "border-b border-transparent bg-white py-3"
-      )}
-    >
-      <Container className="flex items-center justify-between">
-        <a
-          href="#top"
-          onClick={(e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
-          aria-label="Progus Contabilidade — voltar ao topo"
-        >
-          <Logo className="h-[68px] w-[173px] lg:h-20 lg:w-[204px]" />
-        </a>
-
-        {/* Menu central — desktop */}
-        <nav className="hidden items-center gap-1 xl:flex" aria-label="Principal">
-          {navItems.map((item) => {
-            const isActive = activeId === item.href.replace("#", "");
-            return (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNav(item.href);
-                }}
-                className={cn(
-                  "relative whitespace-nowrap rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
-                  isActive
-                    ? "text-azure-700"
-                    : "text-navy-600 hover:text-navy-900"
-                )}
+  const drawer = (
+    <AnimatePresence>
+      {open && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={() => setOpen(false)}
+            className="fixed inset-0 z-[60] bg-navy-950/40 backdrop-blur-sm xl:hidden"
+          />
+          <motion.aside
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", stiffness: 320, damping: 34 }}
+            className="fixed right-0 top-0 z-[70] flex h-[100dvh] w-[82%] max-w-sm flex-col bg-white shadow-card-hover xl:hidden"
+          >
+            <div className="flex items-center justify-between border-b border-navy-100 px-6 py-5">
+              <Logo />
+              <button
+                onClick={() => setOpen(false)}
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-navy-100 text-navy-700 transition hover:bg-navy-50"
+                aria-label="Fechar menu"
               >
-                {item.label}
-                {isActive && (
-                  <motion.span
-                    layoutId="nav-active"
-                    className="absolute inset-0 -z-10 rounded-full bg-azure-50"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </a>
-            );
-          })}
-        </nav>
+                <X className="h-5 w-5" />
+              </button>
+            </div>
 
-        {/* Botões — desktop */}
-        <div className="hidden items-center gap-2.5 xl:flex">
-          <Button as="a" href={PORTAL_URL} external variant="secondary" size="md">
-            Portal do Cliente
-            <ExternalLink className="h-4 w-4" />
-          </Button>
-          <Button as="a" href={CONTACT_ANCHOR} variant="primary" size="md">
-            Quero ser cliente
-            <ArrowRight className="h-4 w-4" />
-          </Button>
-        </div>
-
-        {/* Toggle mobile */}
-        <button
-          onClick={() => setOpen(true)}
-          className="flex h-12 w-12 items-center justify-center rounded-xl border border-navy-100 bg-white/70 text-navy-800 backdrop-blur transition hover:bg-navy-50 xl:hidden"
-          aria-label="Abrir menu"
-          aria-expanded={open}
-        >
-          <Menu className="h-5 w-5" />
-        </button>
-      </Container>
-
-      {/* Drawer mobile */}
-      <AnimatePresence>
-        {open && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              onClick={() => setOpen(false)}
-              className="fixed inset-0 z-40 bg-navy-950/40 backdrop-blur-sm xl:hidden"
-            />
-            <motion.aside
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 320, damping: 34 }}
-              className="fixed right-0 top-0 z-50 flex h-full w-[82%] max-w-sm flex-col bg-white shadow-card-hover xl:hidden"
-            >
-              <div className="flex items-center justify-between border-b border-navy-100 px-6 py-5">
-                <Logo />
-                <button
-                  onClick={() => setOpen(false)}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-navy-100 text-navy-700 transition hover:bg-navy-50"
-                  aria-label="Fechar menu"
+            <nav className="flex flex-col gap-1 px-4 py-6" aria-label="Mobile">
+              {navItems.map((item, i) => (
+                <motion.a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNav(item.href);
+                  }}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.08 + i * 0.06 }}
+                  className="rounded-xl px-4 py-3.5 text-base font-medium text-navy-700 transition hover:bg-azure-50 hover:text-azure-700"
                 >
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
+                  {item.label}
+                </motion.a>
+              ))}
+            </nav>
 
-              <nav className="flex flex-col gap-1 px-4 py-6" aria-label="Mobile">
-                {navItems.map((item, i) => (
-                  <motion.a
-                    key={item.href}
-                    href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNav(item.href);
-                    }}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.08 + i * 0.06 }}
-                    className="rounded-xl px-4 py-3.5 text-base font-medium text-navy-700 transition hover:bg-azure-50 hover:text-azure-700"
-                  >
-                    {item.label}
-                  </motion.a>
-                ))}
-              </nav>
+            <div className="mt-auto flex flex-col gap-3 border-t border-navy-100 px-6 py-6">
+              <Button
+                as="a"
+                href={PORTAL_URL}
+                external
+                variant="secondary"
+                size="lg"
+                className="w-full"
+              >
+                Portal do Cliente
+                <ExternalLink className="h-4 w-4" />
+              </Button>
+              <Button
+                as="a"
+                href={CONTACT_ANCHOR}
+                variant="primary"
+                size="lg"
+                className="w-full"
+                onClick={() => setOpen(false)}
+              >
+                Quero ser cliente
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </motion.aside>
+        </>
+      )}
+    </AnimatePresence>
+  );
 
-              <div className="mt-auto flex flex-col gap-3 border-t border-navy-100 px-6 py-6">
-                <Button
-                  as="a"
-                  href={PORTAL_URL}
-                  external
-                  variant="secondary"
-                  size="lg"
-                  className="w-full"
-                >
-                  Portal do Cliente
-                  <ExternalLink className="h-4 w-4" />
-                </Button>
-                <Button
-                  as="a"
-                  href={CONTACT_ANCHOR}
-                  variant="primary"
-                  size="lg"
-                  className="w-full"
-                  onClick={() => setOpen(false)}
-                >
-                  Quero ser cliente
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-              </div>
-            </motion.aside>
-          </>
+  return (
+    <>
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+          scrolled
+            ? "border-b border-navy-100/70 bg-white/95 py-2 shadow-soft backdrop-blur-xl"
+            // Alterado de bg-transparent para bg-white para garantir a leitura no fundo escuro
+            : "border-b border-transparent bg-white py-3"
         )}
-      </AnimatePresence>
-    </header>
+      >
+        <Container className="flex items-center justify-between">
+          <a
+            href="#top"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            aria-label="Progus Contabilidade — voltar ao topo"
+          >
+            <Logo className="h-[68px] w-[173px] lg:h-20 lg:w-[204px]" />
+          </a>
+
+          {/* Menu central — desktop */}
+          <nav className="hidden items-center gap-1 xl:flex" aria-label="Principal">
+            {navItems.map((item) => {
+              const isActive = activeId === item.href.replace("#", "");
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNav(item.href);
+                  }}
+                  className={cn(
+                    "relative whitespace-nowrap rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
+                    isActive
+                      ? "text-azure-700"
+                      : "text-navy-600 hover:text-navy-900"
+                  )}
+                >
+                  {item.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-active"
+                      className="absolute inset-0 -z-10 rounded-full bg-azure-50"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Botões — desktop */}
+          <div className="hidden items-center gap-2.5 xl:flex">
+            <Button as="a" href={PORTAL_URL} external variant="secondary" size="md">
+              Portal do Cliente
+              <ExternalLink className="h-4 w-4" />
+            </Button>
+            <Button as="a" href={CONTACT_ANCHOR} variant="primary" size="md">
+              Quero ser cliente
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+          </div>
+
+          {/* Toggle mobile */}
+          <button
+            onClick={() => setOpen(true)}
+            className="flex h-12 w-12 items-center justify-center rounded-xl border border-navy-100 bg-white/70 text-navy-800 backdrop-blur transition hover:bg-navy-50 xl:hidden"
+            aria-label="Abrir menu"
+            aria-expanded={open}
+          >
+            <Menu className="h-5 w-5" />
+          </button>
+        </Container>
+      </header>
+      {mounted ? createPortal(drawer, document.body) : null}
+    </>
   );
 }

@@ -5,7 +5,7 @@ import { ArrowRight, ShieldCheck, Star, Clock } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { fadeUp, staggerContainer } from "@/lib/motion";
-import { PORTAL_URL, CONTACT_ANCHOR } from "@/data/navigation";
+import { PORTAL_URL, CONTACT_ANCHOR, CRC } from "@/data/navigation";
 
 const quickMetrics = [
   { value: "35+", label: "anos de mercado" },
@@ -14,7 +14,7 @@ const quickMetrics = [
 ];
 
 const badges = [
-  { icon: ShieldCheck, label: "CRC ativo" },
+  { icon: ShieldCheck, label: CRC },
   { icon: Clock, label: "Obrigações em dia" },
   { icon: Star, label: "Atendimento humano" },
 ];

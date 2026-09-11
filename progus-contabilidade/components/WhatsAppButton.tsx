@@ -20,7 +20,7 @@ export function WhatsAppIcon({ className }: { className?: string }) {
 /** Botão flutuante de WhatsApp, fixo no canto inferior direito do site. */
 export function WhatsAppButton() {
   return (
-    // z-30: abaixo do overlay do menu mobile (z-40) e do header (z-50)
+    // z-30: abaixo do header (z-50) e do menu mobile (overlay z-60 / drawer z-70)
     <motion.div
       initial={{ opacity: 0, scale: 0.7 }}
       animate={{ opacity: 1, scale: 1 }}

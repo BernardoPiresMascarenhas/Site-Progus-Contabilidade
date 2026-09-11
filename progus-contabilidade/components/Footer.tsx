@@ -3,7 +3,13 @@
 import { ArrowUp } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { Container } from "@/components/ui/Container";
-import { navItems, PORTAL_URL } from "@/data/navigation";
+import {
+  navItems,
+  PORTAL_URL,
+  CRC,
+  DEVELOPER_NAME,
+  DEVELOPER_URL,
+} from "@/data/navigation";
 import { scrollToSection } from "@/lib/utils";
 import { services } from "@/data/services";
 
@@ -73,25 +79,39 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
-          <p className="text-sm text-navy-400">
-            © {year} Progus Contabilidade. Todos os direitos reservados.
-          </p>
-          <div className="flex items-center gap-6 text-sm">
-            <a
-              href={PORTAL_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-navy-300 transition hover:text-white"
-            >
-              Portal do Cliente
-            </a>
-            <button
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="flex items-center gap-1.5 text-navy-300 transition hover:text-white"
-            >
-              Voltar ao topo
-              <ArrowUp className="h-3.5 w-3.5" />
-            </button>
+          <div className="flex flex-col gap-1.5 text-center text-sm text-navy-400 sm:text-left">
+            <p>© {year} Progus Contabilidade. Todos os direitos reservados.</p>
+            <p>{CRC}</p>
+          </div>
+          <div className="flex flex-col items-center gap-1.5 sm:items-end">
+            <div className="flex items-center gap-6 text-sm">
+              <a
+                href={PORTAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-navy-300 transition hover:text-white"
+              >
+                Portal do Cliente
+              </a>
+              <button
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="flex items-center gap-1.5 text-navy-300 transition hover:text-white"
+              >
+                Voltar ao topo
+                <ArrowUp className="h-3.5 w-3.5" />
+              </button>
+            </div>
+            <p className="text-sm text-navy-400">
+              Desenvolvido por{" "}
+              <a
+                href={DEVELOPER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-navy-300 underline-offset-4 transition hover:text-white hover:underline"
+              >
+                {DEVELOPER_NAME}
+              </a>
+            </p>
           </div>
         </div>
       </Container>

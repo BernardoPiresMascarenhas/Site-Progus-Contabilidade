@@ -15,7 +15,14 @@ const display = Plus_Jakarta_Sans({
   weight: ["500", "600", "700", "800"],
 });
 
+// URL pública do site — necessária para que og:image seja absoluta ao
+// compartilhar. NEXT_PUBLIC_SITE_URL sobrescreve (útil em ambiente de preview).
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.proguscontabilidade.com.br";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  alternates: { canonical: "/" },
   title: "Progus Contabilidade | Tradição e proximidade para a sua empresa",
   description:
     "Contabilidade familiar com mais de 25 anos de história. Abertura de empresas, planejamento tributário, folha de pagamento, BPO financeiro e contabilidade consultiva.",
@@ -28,11 +35,19 @@ export const metadata: Metadata = {
     "Belo Horizonte",
   ],
   openGraph: {
-    title: "Progus Contabilidade",
+    title: "Progus Contabilidade | Tradição e proximidade para a sua empresa",
     description:
-      "Tradição e proximidade para a sua empresa crescer com segurança.",
+      "Contabilidade familiar com mais de 25 anos de história. Abertura de empresas, planejamento tributário, folha de pagamento e BPO financeiro.",
+    url: siteUrl,
+    siteName: "Progus Contabilidade",
     type: "website",
     locale: "pt_BR",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Progus Contabilidade | Tradição e proximidade para a sua empresa",
+    description:
+      "Contabilidade familiar com mais de 25 anos de história. Abertura de empresas, planejamento tributário, folha de pagamento e BPO financeiro.",
   },
 };
 
