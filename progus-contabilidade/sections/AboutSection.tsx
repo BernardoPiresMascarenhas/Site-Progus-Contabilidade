@@ -43,7 +43,7 @@ export function AboutSection() {
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
-            className="relative mx-auto mb-16 w-full max-w-md lg:mx-0 lg:mb-0 lg:max-w-none"
+            className="relative mx-auto mb-28 w-full max-w-md lg:mx-0 lg:mb-0 lg:max-w-none"
           >
             {/* Foto principal (horizontal) */}
             <div className="relative aspect-[3/2] w-[88%] overflow-hidden rounded-2xl shadow-[0_0_40px_rgba(14,165,233,0.35)]">
@@ -58,7 +58,7 @@ export function AboutSection() {
             </div>
 
             {/* Foto secundária (vertical), sobreposta no canto inferior direito */}
-            <div className="absolute -bottom-14 -right-4 z-10 aspect-[3/4] w-[40%] overflow-hidden rounded-2xl border-[6px] border-white bg-white shadow-[0_0_40px_rgba(14,165,233,0.35)] sm:-right-8 lg:-bottom-16 lg:-right-14">
+            <div className="absolute -bottom-24 -right-4 z-10 aspect-[3/4] w-[40%] overflow-hidden rounded-2xl border-[6px] border-white bg-white shadow-[0_0_40px_rgba(14,165,233,0.35)] sm:-right-8 lg:-bottom-16 lg:-right-14">
               <Image
                 src="/foto-sobre-2.jpg"
                 alt="Hélio com o neto no colo"

@@ -26,7 +26,7 @@ export function Footer() {
           <div className="lg:col-span-5">
             <Logo variant="footer" />
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-navy-300">
-              Contabilidade familiar com mais de 25 anos de história. Tradição,
+              Contabilidade familiar com mais de 35 anos de história. Tradição,
               proximidade e tecnologia para a sua empresa crescer com segurança.
             </p>
           </div>
